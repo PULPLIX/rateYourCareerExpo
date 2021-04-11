@@ -1,21 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { NavigarionContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import LandingScreen from '//components/auth/Landing'
+
+
 
 export default function App() {
+  const Stack = createStackNavigator();
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigarionContainer>
+      <Stack.Navigator initialRoutName="Landing">
+        <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: false }} />
+      </Stack.Navigator>
+    </NavigarionContainer>
+
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+
 });
