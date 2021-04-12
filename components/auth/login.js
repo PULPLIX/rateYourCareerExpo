@@ -11,7 +11,6 @@ export class Register extends Component {
         this.state = {
             email: '',
             password: '',
-            name: ''
         }
 
         this.onSignUp = this.onSignUp.bind(this)
@@ -19,7 +18,7 @@ export class Register extends Component {
 
     onSignUp() {
         const { email, password, name } = this.state;
-        firebase.auth().createUserWithEmailAndPassword(email, password)
+        firebase.auth().signIn(email, password)
             .then((result) => {
                 firebase.firestore().collection("users")
                     .doc(firebase.auth().currentUser.uid)
@@ -53,11 +52,11 @@ export class Register extends Component {
 
                 <Button
                     onPress={() => this.onSignUp()}
-                    title="Sign Up"
+                    title="Sign In"
                 />
             </View>
         )
     }
 }
 
-export default Register
+export default Login
