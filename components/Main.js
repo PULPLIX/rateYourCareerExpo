@@ -9,17 +9,21 @@ import { bindActionCreators } from 'redux'
 import { fetchUser } from '../redux/actions/index'
 
 //Importación de iconos y barra de navegación
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 //Importación de las vistas
 import ProfileScreen from './main/Profile'
 import FeedScreen from './main/Feed';
-import AddScreen from './main/Add';
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
+const EmptyScreen = () => {
+    return (null);
+};
 
 export class Main extends Component {
+
+
     //En el momento que se realiza el login se hace una búsqueda en la base de datos 
     //para  "setear" el estado de usuario con redux
     componentDidMount() {
@@ -28,8 +32,14 @@ export class Main extends Component {
 
     render() {
         return (
-            <Tab.Navigator>
-                <Tab.Screen name="Add" component={AddScreen}
+            <Tab.Navigator initialRoutName="Feed" labeled={false}>
+                <Tab.Screen name="AddContainer" component={EmptyScreen}
+                    listeners={({ navigation }) => ({
+                        tabPress: event => {
+                            event.preventDefault();
+                            navigation.navigate("Add")
+                        }
+                    })}
                     options={{
                         tabBarIcon: ({ color, size }) => (
                             <MaterialCommunityIcons name="plus-box" color={color} size={26} />

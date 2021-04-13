@@ -3,7 +3,7 @@ import { View, Button, TextInput } from 'react-native'
 
 import firebase from 'firebase'
 
-export class Login extends Component {
+export default class Login extends Component {
     constructor(props) {
         super(props);
 

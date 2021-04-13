@@ -2,6 +2,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { View, Text } from 'react-native'
+import AddScreen from './components/main/Add';
 
 //Importación y configuración de firebase
 import * as firebase from 'firebase';
@@ -88,13 +89,9 @@ export class App extends Component {
     return (
       <Provider store={store}>
         <NavigationContainer >
-          <Stack.Navigator initialRouteName="Main"
-            activeColor="#f0edf6"
-            inactiveColor="#3e2465"
-            shifting='true'
-            barStyle={{ backgroundColor: '#694fad', paddingBottom: 48 }}
-          >
-            <Stack.Screen name="Main" component={MainScreen} />
+          <Stack.Navigator initialRouteName="Main" >
+            <Stack.Screen name="Main" component={MainScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="Add" component={AddScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
