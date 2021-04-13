@@ -28,8 +28,7 @@ export class Main extends Component {
 
     render() {
         return (
-            <Tab.Navigator  >
-
+            <Tab.Navigator>
                 <Tab.Screen name="Add" component={AddScreen}
                     options={{
                         tabBarIcon: ({ color, size }) => (
@@ -43,7 +42,6 @@ export class Main extends Component {
                             <MaterialCommunityIcons name="home" color={color} size={26} />
                         )
                     }}
-
                 />
                 <Tab.Screen name="Profile" component={ProfileScreen}
                     options={{
@@ -52,7 +50,7 @@ export class Main extends Component {
                         )
                     }}
                 />
-            </Tab.Navigator >
+            </Tab.Navigator>
         )
     }
 }
