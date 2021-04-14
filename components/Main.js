@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux'
 //Se importa la función para obtener el usuario en sesión por medio de redux
 import { fetchUser } from '../redux/actions/index'
 
+
 //Importación de iconos y barra de navegación
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -15,6 +16,10 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 //Importación de las vistas
 import ProfileScreen from './main/Profile'
 import FeedScreen from './main/Feed';
+import SearchScreen from './main/Search';
+
+//Importación de firebase
+import firebase from 'firebase'
 
 const Tab = createMaterialBottomTabNavigator();
 const EmptyScreen = () => {
@@ -57,9 +62,22 @@ export class Main extends Component {
                     }}
                 />
                 <Tab.Screen name="Profile" component={ProfileScreen}
+                    listeners={({ navigation }) => ({
+                        tabPress: event => {
+                            event.preventDefault();
+                            navigation.navigate("Profile", { uid: firebase.auth().currentUser.uid })
+                        }
+                    })}
                     options={{
                         tabBarIcon: ({ color, size }) => (
                             <MaterialCommunityIcons name="account-circle" color={color} size={26} />
+                        )
+                    }}
+                />
+                <Tab.Screen name="Search" component={SearchScreen} navigation={this.props.navigation}
+                    options={{
+                        tabBarIcon: ({ color, size }) => (
+                            <MaterialCommunityIcons name="magnify" color={color} size={26} />
                         )
                     }}
                 />
