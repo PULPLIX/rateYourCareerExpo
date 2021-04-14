@@ -23,7 +23,6 @@ const EmptyScreen = () => {
 
 export class Main extends Component {
 
-
     //En el momento que se realiza el login se hace una búsqueda en la base de datos 
     //para  "setear" el estado de usuario con redux
     componentDidMount() {
@@ -32,7 +31,10 @@ export class Main extends Component {
 
     render() {
         return (
-            <Tab.Navigator initialRoutName="Feed" labeled={false}>
+            <Tab.Navigator initialRoutName="Feed" labeled={false}
+                activeColor="#f0edf6"
+                barStyle={{ backgroundColor: '#506AD4' }}
+            >
                 <Tab.Screen name="AddContainer" component={EmptyScreen}
                     listeners={({ navigation }) => ({
                         tabPress: event => {
@@ -40,6 +42,7 @@ export class Main extends Component {
                             navigation.navigate("Add")
                         }
                     })}
+
                     options={{
                         tabBarIcon: ({ color, size }) => (
                             <MaterialCommunityIcons name="plus-box" color={color} size={26} />
@@ -68,6 +71,7 @@ export class Main extends Component {
 const mapStateToProps = (store) => ({
     currentUser: store.userState.currentUser
 })
+
 const mapDispatchToProps = (dispatch) => bindActionCreators({ fetchUser }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

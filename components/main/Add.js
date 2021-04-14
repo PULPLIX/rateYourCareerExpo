@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Button, Image } from 'react-native';
+import { StyleSheet, Text, View, Button, Image, Platform, Alert } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 
@@ -13,14 +13,23 @@ export default function Add({ navigation }) {
 
     useEffect(() => {
         (async () => {
-            const cameraStatus = await Camera.requestPermissionsAsync();
-            setHasCameraPermission(cameraStatus.status === 'granted');
+            if (Platform.OS !== 'web') {
+                const cameraStatus = await ImagePicker.requestMediaLibraryPermissionsAsync();
+                setHasCameraPermission(cameraStatus.status === 'granted');
 
-            const galleryStatus = await ImagePicker.requestCameraRollPermissionsAsync();
-            setHasGalleryPermission(galleryStatus.status === 'granted');
+                if (hasCameraPermission !== 'granted') {
+                    alert('Sorry, we need camera roll permissions to make this work!');
+                } else {
+                    alert('You already give us the permissions to access your camera');
+                }
 
+                const galleryStatus = await ImagePicker.requestCameraPermissionsAsync();
+                setHasGalleryPermission(galleryStatus.status === 'granted');
 
-        })();
+            } else {
+                console.log("You are in a web browser, so we can't access to the camera")
+            }
+        })()
     }, []);
 
     const takePicture = async () => {
@@ -44,13 +53,13 @@ export default function Add({ navigation }) {
         }
     };
 
-
     if (hasCameraPermission === null || hasGalleryPermission === false) {
-        return <View />;
+        return <Text>Camera feature is not available in web browser </Text>;
     }
     if (hasCameraPermission === false || hasGalleryPermission === false) {
         return <Text>No access to camera</Text>;
     }
+
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.cameraContainer}>
@@ -76,6 +85,7 @@ export default function Add({ navigation }) {
             <Button title="Save" onPress={() => navigation.navigate('Save', { image })} />
             {image && <Image source={{ uri: image }} style={{ flex: 1 }} />}
         </View>
+
     );
 }
 
