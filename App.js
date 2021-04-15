@@ -2,8 +2,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { View, Text } from 'react-native'
-import AddScreen from './components/main/Add';
-import SaveScreen from './components/main/Save';
 
 //Importación y configuración de firebase
 import * as firebase from 'firebase';
@@ -32,16 +30,16 @@ import rootReducer from './redux/reducers'
 import thunk from 'redux-thunk'
 
 //Importación de componentes
-import LandingScreen from './components/auth/Landing';
-import RegisterScreen from './components/auth/Register';
-import LoginScreen from './components/auth/Login';
-import MainScreen from './components/Main';
-
-
+import LandingScreen from './components/auth/Landing'
+import RegisterScreen from './components/auth/Register'
+import LoginScreen from './components/auth/Login'
+import MainScreen from './components/Main'
+import AddScreen from './components/main/Add'
+import SaveScreen from './components/main/Save'
+import CommentScreen from './components/main/Comment'
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 const Stack = createStackNavigator();
-
 
 export class App extends Component {
   constructor(props) {
@@ -94,7 +92,8 @@ export class App extends Component {
             <Stack.Screen name="Main" component={MainScreen} />
             <Stack.Screen name="Add" component={AddScreen} navigation={this.props.navigation} />
             <Stack.Screen name="Save" component={SaveScreen} navigation={this.props.navigation} />
-          </Stack.Navigator>
+            <Stack.Screen name="Comment" component={CommentScreen} navigation={this.props.navigation}/>       
+          </Stack.Navigator>  
         </NavigationContainer>
       </Provider>
     )

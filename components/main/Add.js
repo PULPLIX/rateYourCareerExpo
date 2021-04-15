@@ -38,7 +38,7 @@ export default function Add({ navigation }) {
             setImage(data.uri);
         }
     }
-
+    
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -70,8 +70,9 @@ export default function Add({ navigation }) {
                     ratio={'1:1'} />
             </View>
 
+            <Button title="Tomar Foto" onPress={() => takePicture()} />
             <Button
-                title="Flip Image"
+                title="Girar Camara"
                 onPress={() => {
                     setType(
                         type === Camera.Constants.Type.back
@@ -80,9 +81,8 @@ export default function Add({ navigation }) {
                     );
                 }}>
             </Button>
-            <Button title="Take Picture" onPress={() => takePicture()} />
-            <Button title="Pick Image From Gallery" onPress={() => pickImage()} />
-            <Button title="Save" onPress={() => navigation.navigate('Save', { image })} />
+            <Button title="Subir una foto" onPress={() => pickImage()} />
+            <Button title="Guardar" onPress={() => navigation.navigate('Save', { image })} />
             {image && <Image source={{ uri: image }} style={{ flex: 1 }} />}
         </View>
 
