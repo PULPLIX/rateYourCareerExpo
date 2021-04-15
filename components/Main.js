@@ -6,7 +6,7 @@ import { Text, View } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 //Se importa la función para obtener el usuario en sesión por medio de redux
-import { fetchUser } from '../redux/actions/index'
+import { fetchUser, fetchUserPosts, fetchUserFollowing } from '../redux/actions/index'
 
 
 //Importación de iconos y barra de navegación
@@ -32,6 +32,8 @@ export class Main extends Component {
     //para  "setear" el estado de usuario con redux
     componentDidMount() {
         this.props.fetchUser()
+        this.props.fetchUserPosts();
+        this.props.fetchUserFollowing();
     }
 
     render() {
@@ -90,6 +92,6 @@ const mapStateToProps = (store) => ({
     currentUser: store.userState.currentUser
 })
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ fetchUser }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ fetchUser, fetchUserPosts, fetchUserFollowing }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
