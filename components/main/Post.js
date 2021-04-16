@@ -16,7 +16,7 @@ function Post() {
                         />
                     </View>
                     <View style={styles.containerInfo}>
-                        <View style={{ justifyContent: "start" }}>
+                        <View >
                             <Text style={styles.userName}>Scarlett Johanson</Text>
                             <Text style={{ fontSize: 11, color: "#9E9E9E", fontWeight: "bold" }}>Mar 5, 2021 - 8:40pm</Text>
                         </View>
@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
     body: {
         flex: 1,
         backgroundColor: "#fff",
-        alignItems: "start",
         // justifyContent: "center",
         flexDirection: "row"
     },
@@ -68,16 +67,16 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         width: 50,
         height: 50,
-        borderRadius: "50%",
+        borderRadius: 25,
         overflow: "hidden",
         backgroundColor: "#ff0000",
         marginLeft: 5
     },
     image: {
-        width: 70,
-        height: 70,
+        width: 80,
+        height: 80,
         resizeMode: "contain",
-        borderRadius: "100%",
+        borderRadius: 40,
     },
     containerInfo: {
         flex: 1,
@@ -87,7 +86,7 @@ const styles = StyleSheet.create({
     },
     userName: {
         fontSize: 20,
-        fontWeight: 600,
+        fontWeight: "600",
         color: "#212121",
     },
     comentarioContainer: {
