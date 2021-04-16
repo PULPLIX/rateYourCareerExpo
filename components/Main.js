@@ -17,6 +17,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import ProfileScreen from './main/Profile'
 import FeedScreen from './main/Feed';
 import SearchScreen from './main/Search';
+import PostComponent from './main/Post';
 
 //Importación de firebase
 import firebase from 'firebase'
@@ -80,6 +81,13 @@ export class Main extends Component {
                     options={{
                         tabBarIcon: ({ color, size }) => (
                             <MaterialCommunityIcons name="magnify" color={color} size={26} />
+                        )
+                    }}
+                />
+                <Tab.Screen name="Post" component={PostComponent} navigation={this.props.navigation}
+                    options={{
+                        tabBarIcon: ({ color, size }) => (
+                            <MaterialCommunityIcons name="face-profile" color={color} size={26} />
                         )
                     }}
                 />
