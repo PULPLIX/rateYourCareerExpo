@@ -22,15 +22,28 @@ export default class Landing extends Component {
 
 
 
-    onSignIn() {
+    async onSignIn () {
         const { email, password } = this.state;
-        firebase.auth().signInWithEmailAndPassword(email, password)
-            .then((result) => {
-                console.log(result)
+        let body = {
+            cedula: email,
+            password
+        }
+        console.log(body);
+        let response = await fetch('http://192.168.1.100:3000/login?cedula='+email+'&password='+password, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                body
             })
-            .catch((error) => {
-                console.log(error)
-            })
+        });
+        let json = await response.json();
+        console.log(json[0]);
+        if(json[0].cedula){
+            this.props.navigation.navigate("Main"); //aqui se cae ! redirigir a la pagina de inicio del sistema
+        }
     }
 
     render() {
