@@ -28,6 +28,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux'
 import rootReducer from './redux/reducers'
 import thunk from 'redux-thunk'
+import * as Font from 'expo-font';
 
 //Importación de componentes
 import LandingScreen from './components/auth/Landing'
@@ -42,6 +43,11 @@ const store = createStore(rootReducer, applyMiddleware(thunk));
 const Stack = createStackNavigator();
 
 export class App extends Component {
+
+  state = {
+    idFontLoaded: false
+  }
+
   constructor(props) {
     super()
     this.state = {
@@ -49,7 +55,13 @@ export class App extends Component {
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    await Font.loadAsync({
+      'Bold': require('./src/fonts/OpenSans-Bold.ttf'),
+      'Normal': require('./src/fonts/OpenSans-Regular.ttf'),
+    });
+    this.setState({ isFontLoaded: true })
+
     firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
         this.setState({
@@ -78,9 +90,9 @@ export class App extends Component {
       return (
         <NavigationContainer>
           <Stack.Navigator initialRoutName="Landing">
-            <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="Register" component={RegisterScreen} />
-            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: false }} navigation={this.props.navigation} />
+            <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }}/>
+            {/* <Stack.Screen name="Login" component={LoginScreen} />  */}
           </Stack.Navigator>
         </NavigationContainer>
       )
@@ -92,8 +104,8 @@ export class App extends Component {
             <Stack.Screen name="Main" component={MainScreen} />
             <Stack.Screen name="Add" component={AddScreen} navigation={this.props.navigation} />
             <Stack.Screen name="Save" component={SaveScreen} navigation={this.props.navigation} />
-            <Stack.Screen name="Comment" component={CommentScreen} navigation={this.props.navigation}/>       
-          </Stack.Navigator>  
+            <Stack.Screen name="Comment" component={CommentScreen} navigation={this.props.navigation} />
+          </Stack.Navigator>
         </NavigationContainer>
       </Provider>
     )
